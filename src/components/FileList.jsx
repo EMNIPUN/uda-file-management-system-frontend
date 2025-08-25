@@ -3,16 +3,11 @@ import FileCard from './FileCard';
 import { 
   Grid, 
   List, 
-  ArrowUpDown, 
-  ChevronDown, 
-  Filter, 
   Folder
 } from 'lucide-react';
 
 const FileList = ({ files = [], folders = [] }) => {
   const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
-  const [sortMenuOpen, setSortMenuOpen] = useState(false);
-  const [filterMenuOpen, setFilterMenuOpen] = useState(false);
 
   return (
     <div>
@@ -20,102 +15,7 @@ const FileList = ({ files = [], folders = [] }) => {
         <h2 className="text-xl font-semibold text-gray-800">Files</h2>
         
         <div className="flex items-center gap-2">
-          <div className="relative">
-            <button 
-              onClick={() => setSortMenuOpen(!sortMenuOpen)}
-              className="flex items-center gap-1 px-3 py-1.5 text-sm bg-white border border-gray-300 rounded-md hover:bg-gray-50"
-            >
-              <ArrowUpDown size={16} />
-              <span className="hidden sm:inline">Sort</span>
-              <ChevronDown size={16} />
-            </button>
-            
-            {sortMenuOpen && (
-              <div className="absolute right-0 z-10 mt-1 w-48 bg-white rounded-md shadow-lg border border-gray-200">
-                <ul className="py-1">
-                  <li>
-                    <button className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">
-                      Name (A to Z)
-                    </button>
-                  </li>
-                  <li>
-                    <button className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">
-                      Name (Z to A)
-                    </button>
-                  </li>
-                  <li>
-                    <button className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">
-                      Date Modified (Newest)
-                    </button>
-                  </li>
-                  <li>
-                    <button className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">
-                      Date Modified (Oldest)
-                    </button>
-                  </li>
-                  <li>
-                    <button className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">
-                      Size (Largest)
-                    </button>
-                  </li>
-                  <li>
-                    <button className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">
-                      Size (Smallest)
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            )}
-          </div>
-          
-          <div className="relative">
-            <button 
-              onClick={() => setFilterMenuOpen(!filterMenuOpen)}
-              className="flex items-center gap-1 px-3 py-1.5 text-sm bg-white border border-gray-300 rounded-md hover:bg-gray-50"
-            >
-              <Filter size={16} />
-              <span className="hidden sm:inline">Filter</span>
-              <ChevronDown size={16} />
-            </button>
-            
-            {filterMenuOpen && (
-              <div className="absolute right-0 z-10 mt-1 w-48 bg-white rounded-md shadow-lg border border-gray-200">
-                <ul className="py-1">
-                  <li>
-                    <button className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">
-                      All Files
-                    </button>
-                  </li>
-                  <li>
-                    <button className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">
-                      Documents
-                    </button>
-                  </li>
-                  <li>
-                    <button className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">
-                      Images
-                    </button>
-                  </li>
-                  <li>
-                    <button className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">
-                      Videos
-                    </button>
-                  </li>
-                  <li>
-                    <button className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">
-                      Audio
-                    </button>
-                  </li>
-                  <li>
-                    <button className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">
-                      Archives
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            )}
-          </div>
-          
+          {/* simple sort placeholder removed for minimal UI */}
           <div className="flex border border-gray-300 rounded-md overflow-hidden">
             <button 
               onClick={() => setViewMode('grid')}
@@ -183,7 +83,7 @@ const FileList = ({ files = [], folders = [] }) => {
       ) : (
         <div className="flex flex-col items-center justify-center py-16 text-center">
           <div className="p-4 bg-gray-100 rounded-full mb-4">
-            <File size={32} className="text-gray-400" />
+            <Folder size={32} className="text-gray-400" />
           </div>
           <h3 className="text-lg font-medium text-gray-800 mb-1">No files yet</h3>
           <p className="text-gray-500 text-sm max-w-xs">

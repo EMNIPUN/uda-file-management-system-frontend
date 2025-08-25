@@ -15,11 +15,8 @@ function App() {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<HomePage />} />
-          <Route path="files/:type" element={<FilesPage />} />
+          <Route path="files/all" element={<FilesPage />} />
           <Route path="tracker" element={<TrackerPage />} />
-          <Route path="starred" element={<FilesPage />} />
-          <Route path="shared" element={<FilesPage />} />
-          <Route path="trash" element={<FilesPage />} />
         </Route>
       </Routes>
     </Router>

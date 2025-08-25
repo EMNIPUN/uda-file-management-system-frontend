@@ -23,7 +23,7 @@ const MainLayout = () => {
   };
   
   return (
-    <div className="h-screen bg-gray-50 flex flex-col">
+    <div className="h-screen bg-white flex flex-col">
       <Navbar 
         toggleMobileSidebar={toggleMobileSidebar}
         isMobileSidebarOpen={isMobileSidebarOpen}
@@ -48,8 +48,10 @@ const MainLayout = () => {
         </div>
         
         {/* Main content */}
-        <div className="flex-1 overflow-auto p-6">
-          <Outlet />
+        <div className="flex-1 overflow-auto bg-gray-50">
+          <div className="p-6">
+            <Outlet />
+          </div>
         </div>
       </div>
     </div>
