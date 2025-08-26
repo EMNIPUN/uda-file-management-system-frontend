@@ -69,6 +69,43 @@ const HomePage = () => {
         </div>
         <FileTracker />
       </div>
+      
+      {/* Sample file records */}
+      <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+        <div className="flex items-center gap-2 mb-4">
+          <Database size={18} className="text-primary-500" />
+          <h2 className="text-lg font-semibold text-gray-900">Sample File Records</h2>
+        </div>
+        <div className="border border-gray-200 rounded-lg overflow-hidden">
+          <table className="min-w-full text-sm">
+            <thead className="bg-gray-50 text-gray-600">
+              <tr>
+                <th className="px-4 py-2 text-left">File ID</th>
+                <th className="px-4 py-2 text-left">Cluster</th>
+                <th className="px-4 py-2 text-left">Location</th>
+                <th className="px-4 py-2 text-left">Row</th>
+                <th className="px-4 py-2 text-left">Column</th>
+              </tr>
+            </thead>
+            <tbody>
+              {mockRecords.map((r, idx) => (
+                <tr key={idx} className="border-t border-gray-100">
+                  <td className="px-4 py-2 font-medium text-gray-900">{r.fileId}</td>
+                  <td className="px-4 py-2">{r.cluster}</td>
+                  <td className="px-4 py-2">
+                    <span className="text-xs bg-primary-100 text-primary-700 px-2 py-1 rounded-full font-medium">{`${r.cluster}${r.row}${r.column}`}</span>
+                  </td>
+                  <td className="px-4 py-2">{r.row}</td>
+                  <td className="px-4 py-2">{r.column}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    
+      
 
       <FileUploader 
         isOpen={isUploadModalOpen}
