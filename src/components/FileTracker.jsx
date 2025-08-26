@@ -1,8 +1,5 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 import { Search, File, MapPin, Loader2, Database } from 'lucide-react';
-
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const FileTracker = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -10,28 +7,42 @@ const FileTracker = () => {
   const [isSearching, setIsSearching] = useState(false);
   const [searchResult, setSearchResult] = useState(null);
   const [error, setError] = useState('');
-  const [allFiles, setAllFiles] = useState([]);
-  const [isLoadingFiles, setIsLoadingFiles] = useState(true);
 
-  // Fetch all files on component mount
-  useEffect(() => {
-    const fetchAllFiles = async () => {
-      try {
-        setIsLoadingFiles(true);
-        const response = await axios.get(`${BACKEND_URL}/api/file/getallfile`);
-        setAllFiles(response.data);
-      } catch (error) {
-        console.error('Error fetching files:', error);
-        setError('Failed to load files from database');
-      } finally {
-        setIsLoadingFiles(false);
-      }
-    };
+  // Mock file database for demo purposes
+  const mockFileDatabase = [
+    {
+      id: 'FILE-123',
+      name: 'Annual Report 2025.pdf',
+      type: 'document',
+      size: '3.2 MB',
+      modifiedDate: 'July 15, 2025',
+      cluster: 'C', // Colombo
+      location: '89', // Row 8, Column 9
+      fullLocation: 'C89'
+    },
+    {
+      id: 'FILE-456',
+      name: 'Client Meeting Notes.docx',
+      type: 'document',
+      size: '1.5 MB',
+      modifiedDate: 'July 20, 2025',
+      cluster: 'K', // Kandy
+      location: '34', // Row 3, Column 4
+      fullLocation: 'K34'
+    },
+    {
+      id: 'FILE-789',
+      name: 'Project Timeline.xlsx',
+      type: 'document',
+      size: '2.8 MB',
+      modifiedDate: 'July 25, 2025',
+      cluster: 'G', // Galle
+      location: '12', // Row 1, Column 2
+      fullLocation: 'G12'
+    }
+  ];
 
-    fetchAllFiles();
-  }, []);
-
-  const handleSearch = async (e) => {
+  const handleSearch = (e) => {
     e.preventDefault();
     
     if (!searchQuery.trim()) {
@@ -41,41 +52,30 @@ const FileTracker = () => {
     
     setError('');
     setIsSearching(true);
-    setSearchResult(null);
     
-    try {
+    // Simulate API call with a delay
+    setTimeout(() => {
       let result = null;
       
       if (searchBy === 'fileId') {
-        // Search by fileId
-        result = allFiles.find(file => 
-          file.fileId.toLowerCase() === searchQuery.toLowerCase()
-        );
+        result = mockFileDatabase.find(file => file.id.toLowerCase() === searchQuery.toLowerCase());
       } else {
-        // Search by location (cluster + row + column)
-        const query = searchQuery.toUpperCase();
-        result = allFiles.find(file => {
-          const fileLocation = `${file.cluster}${file.row}${file.column}`;
-          return fileLocation === query;
-        });
+        result = mockFileDatabase.find(file => file.fullLocation.toLowerCase() === searchQuery.toLowerCase());
       }
       
       setSearchResult(result || null);
       if (!result) {
         setError(`No file found with the given ${searchBy === 'fileId' ? 'File ID' : 'Cabin Location'}`);
       }
-    } catch (error) {
-      console.error('Search error:', error);
-      setError('An error occurred during search');
-    } finally {
+      
       setIsSearching(false);
-    }
+    }, 1000);
   };
   
   const renderLocationDetails = (file) => {
     const cluster = file.cluster;
-    const row = file.row;
-    const column = file.column;
+    const row = file.location[0];
+    const column = file.location[1];
     
     let clusterName;
     switch (cluster) {
@@ -87,27 +87,6 @@ const FileTracker = () => {
         break;
       case 'G':
         clusterName = 'Galle';
-        break;
-      case 'J':
-        clusterName = 'Jaffna';
-        break;
-      case 'A':
-        clusterName = 'Anuradhapura';
-        break;
-      case 'B':
-        clusterName = 'Batticaloa';
-        break;
-      case 'M':
-        clusterName = 'Matara';
-        break;
-      case 'N':
-        clusterName = 'Negombo';
-        break;
-      case 'P':
-        clusterName = 'Polonnaruwa';
-        break;
-      case 'T':
-        clusterName = 'Trincomalee';
         break;
       default:
         clusterName = cluster;
@@ -130,17 +109,6 @@ const FileTracker = () => {
       </div>
     );
   };
-
-  if (isLoadingFiles) {
-    return (
-      <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
-        <div className="flex items-center justify-center py-12">
-          <Loader2 className="animate-spin text-primary-500" size={32} />
-          <span className="ml-3 text-gray-600">Loading files...</span>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
@@ -225,17 +193,15 @@ const FileTracker = () => {
                   <File size={24} className="text-primary-600" />
                 </div>
                 <div className="flex-1">
-                  <h4 className="text-lg font-semibold text-gray-900">File ID: {searchResult.fileId}</h4>
-                  <p className="text-sm text-gray-500 mt-1">Physical File</p>
+                  <h4 className="text-lg font-semibold text-gray-900">{searchResult.name}</h4>
+                  <p className="text-sm text-gray-500 mt-1">{searchResult.type} • {searchResult.size}</p>
                   <div className="flex items-center gap-2 mt-2">
                     <span className="text-xs bg-primary-100 text-primary-700 px-2 py-1 rounded-full font-medium">
-                      ID: {searchResult.fileId}
+                      ID: {searchResult.id}
                     </span>
-                    {searchResult.address && (
-                      <span className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full font-medium">
-                        Address: {searchResult.address}
-                      </span>
-                    )}
+                    <span className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full font-medium">
+                      Modified: {searchResult.modifiedDate}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -249,7 +215,7 @@ const FileTracker = () => {
                 <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
                   <div className="text-center mb-6">
                     <span className="text-3xl font-bold bg-primary-500 text-white px-6 py-3 rounded-lg shadow-sm">
-                      {searchResult.cluster}{searchResult.row}{searchResult.column}
+                      {searchResult.fullLocation}
                     </span>
                   </div>
                   
