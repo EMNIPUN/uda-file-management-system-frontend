@@ -11,18 +11,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 const FileList = ({ files = [], folders = [] }) => {
   const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
 
-  const [folderData, setFolderData] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(`${BACKEND_URL}/api/file/getallfile`);
-      const data = await response.json();
-      setFolderData(data.folders);
-    };
-    fetchData();
-  }, []);
-
-  console.log(folderData);
 
   return (
     <div>

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Search, File, MapPin, Loader2, Database } from 'lucide-react';
 
 // Backend base URL (configure VITE_API_BASE_URL in .env if needed)
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const FileTracker = () => {
   const [searchQuery, setSearchQuery] = useState('');
