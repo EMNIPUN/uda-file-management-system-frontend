@@ -3,11 +3,12 @@ import {
   Home, 
   File, 
   Upload, 
+  FolderPlus,
   FileSearch,
   Database
 } from 'lucide-react';
 
-const Sidebar = ({ onUploadClick }) => {
+const Sidebar = () => {
   const menuItems = [
     { icon: <Home size={18} />, label: 'Dashboard', path: '/' },
     { icon: <Database size={18} />, label: 'All Files', path: '/files/all' },
@@ -25,12 +26,12 @@ const Sidebar = ({ onUploadClick }) => {
         <p className="text-xs text-gray-500 mt-1">File Management System</p>
       </div>
       
-      <div className="p-4">
-        <button 
-          onClick={onUploadClick}
-          className="flex items-center justify-center gap-2 bg-primary-500 hover:bg-primary-600 text-white rounded-lg py-2.5 px-4 w-full transition-colors shadow-sm"
-        >
+      <div className="p-4 flex space-x-2">
+        <button className="flex items-center justify-center gap-2 bg-primary-500 hover:bg-primary-600 text-white rounded-lg py-2.5 px-4 w-full transition-colors shadow-sm">
           <Upload size={18} /> Upload Files
+        </button>
+        <button className="flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg py-2.5 px-3 transition-colors">
+          <FolderPlus size={18} />
         </button>
       </div>
       
