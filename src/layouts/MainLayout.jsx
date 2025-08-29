@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
+import FileUploader from '../components/FileUploader';
 
 const MainLayout = () => {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
@@ -22,6 +23,11 @@ const MainLayout = () => {
     setIsMobileSidebarOpen(!isMobileSidebarOpen);
   };
   
+  const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
+
+  const openUploadModal = () => setIsUploadModalOpen(true);
+  const closeUploadModal = () => setIsUploadModalOpen(false);
+
   return (
     <div className="h-screen bg-white flex flex-col">
       <Navbar 
@@ -44,7 +50,7 @@ const MainLayout = () => {
             isMobileSidebarOpen ? 'translate-x-0' : '-translate-x-full'
           } md:translate-x-0 transition-transform duration-200 ease-in-out md:w-64 flex-shrink-0`}
         >
-          <Sidebar />
+          <Sidebar onUploadClick={openUploadModal} />
         </div>
         
         {/* Main content */}
@@ -53,6 +59,7 @@ const MainLayout = () => {
             <Outlet />
           </div>
         </div>
+        <FileUploader isOpen={isUploadModalOpen} onClose={closeUploadModal} />
       </div>
     </div>
   );
