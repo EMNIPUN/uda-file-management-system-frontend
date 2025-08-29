@@ -1,12 +1,8 @@
 import { useState } from 'react';
-import FileUploader from '../components/FileUploader';
 import FileTracker from '../components/FileTracker';
-import { PlusCircle, Clock, FileSearch, Database, MapPin, TrendingUp } from 'lucide-react';
+import { Clock, FileSearch, Database, MapPin, TrendingUp } from 'lucide-react';
 
 const HomePage = () => {
-  const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
-  
-
   const stats = [
     { label: 'Total Files', value: '1,247', icon: Database, color: 'primary' },
     { label: 'Active Locations', value: '89', icon: MapPin, color: 'blue' },
@@ -35,13 +31,6 @@ const HomePage = () => {
           <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
           <p className="text-gray-500 mt-1">File Management System Overview</p>
         </div>
-        <button 
-          onClick={() => setIsUploadModalOpen(true)}
-          className="flex items-center gap-2 px-6 py-3 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors font-medium shadow-sm"
-        >
-          <PlusCircle size={18} />
-          <span>Upload Files</span>
-        </button>
       </div>
       
       {/* Stats Cards */}
@@ -69,11 +58,6 @@ const HomePage = () => {
         </div>
         <FileTracker />
       </div>  
-
-      <FileUploader 
-        isOpen={isUploadModalOpen}
-        onClose={() => setIsUploadModalOpen(false)}
-      />
     </div>
   );
 };

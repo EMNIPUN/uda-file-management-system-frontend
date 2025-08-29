@@ -70,18 +70,18 @@ const FileUploader = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl mx-4 max-h-[70vh] overflow-hidden flex flex-col">
-        <div className="flex items-center justify-between border-b border-gray-200 px-6 py-4">
+      <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl mx-4 max-h-[90vh] overflow-hidden flex flex-col">
+        <div className="flex items-center justify-between border-b border-gray-200 px-6 py-4 bg-gray-50">
           <h2 className="text-lg font-semibold text-gray-900">Add File Record</h2>
           <button 
             onClick={onClose}
-            className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+            className="p-2 rounded-full hover:bg-gray-200 transition-colors"
           >
             <X size={20} className="text-gray-500" />
           </button>
         </div>
 
-        <div className="p-6 space-y-5 flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-orange-500 scrollbar-track-gray-100">
+        <div className="p-6 space-y-5 flex-1 overflow-y-auto">
           {errorMessage && (
             <div className="px-4 py-3 rounded-lg bg-red-50 text-red-700 border border-red-100 text-sm">{errorMessage}</div>
           )}

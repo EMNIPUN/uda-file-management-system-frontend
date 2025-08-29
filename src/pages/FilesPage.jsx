@@ -1,14 +1,10 @@
 import { useState } from 'react';
 import FileList from '../components/FileList';
-import FileUploader from '../components/FileUploader';
 import { 
-  PlusCircle, 
   Database
 } from 'lucide-react';
 
 const FilesPage = () => {
-  const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
-  
   const getPageTitle = () => ({ title: 'All Files', icon: <Database size={24} className="text-primary-500" /> });
   
   // Mock data for demo (documents only)
@@ -79,23 +75,11 @@ const FilesPage = () => {
             <p className="text-sm text-gray-500">Manage and organize your files</p>
           </div>
         </div>
-        <button 
-          onClick={() => setIsUploadModalOpen(true)}
-          className="flex items-center gap-2 px-6 py-3 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors font-medium shadow-sm"
-        >
-          <PlusCircle size={18} />
-          <span>Upload Files</span>
-        </button>
       </div>
       
       <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
         <FileList files={files} folders={folders} />
       </div>
-
-      <FileUploader 
-        isOpen={isUploadModalOpen}
-        onClose={() => setIsUploadModalOpen(false)}
-      />
     </div>
   );
 };

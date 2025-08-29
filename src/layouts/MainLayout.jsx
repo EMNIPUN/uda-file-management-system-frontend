@@ -2,9 +2,11 @@ import { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
+import FileUploader from '../components/FileUploader';
 
 const MainLayout = () => {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   
   // Close sidebar when screen size changes
   useEffect(() => {
@@ -20,6 +22,14 @@ const MainLayout = () => {
   
   const toggleMobileSidebar = () => {
     setIsMobileSidebarOpen(!isMobileSidebarOpen);
+  };
+
+  const handleUploadClick = () => {
+    setIsUploadModalOpen(true);
+  };
+
+  const handleCloseUploadModal = () => {
+    setIsUploadModalOpen(false);
   };
   
   return (
@@ -44,7 +54,7 @@ const MainLayout = () => {
             isMobileSidebarOpen ? 'translate-x-0' : '-translate-x-full'
           } md:translate-x-0 transition-transform duration-200 ease-in-out md:w-64 flex-shrink-0`}
         >
-          <Sidebar />
+          <Sidebar onUploadClick={handleUploadClick} />
         </div>
         
         {/* Main content */}
@@ -54,6 +64,12 @@ const MainLayout = () => {
           </div>
         </div>
       </div>
+
+      {/* FileUploader Modal */}
+      <FileUploader 
+        isOpen={isUploadModalOpen} 
+        onClose={handleCloseUploadModal} 
+      />
     </div>
   );
 };
