@@ -2,6 +2,9 @@ import { useState } from 'react';
 import axios from 'axios';
 import { Search, File, MapPin, Loader2, Database } from 'lucide-react';
 
+// Backend base URL (configure VITE_API_BASE_URL in .env if needed)
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
 const FileTracker = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchBy, setSearchBy] = useState('fileId'); // 'fileId', 'location'
@@ -9,8 +12,7 @@ const FileTracker = () => {
   const [searchResult, setSearchResult] = useState(null);
   const [error, setError] = useState('');
 
-  // Backend base URL (configure VITE_API_BASE_URL in .env if needed)
-  const API_BASE_URL = import.meta?.env?.VITE_API_BASE_URL || 'http://localhost:8000';
+
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -25,7 +27,7 @@ const FileTracker = () => {
     
     (async () => {
       try {
-        const { data } = await axios.get(`${API_BASE_URL}/api/file/getallfile`);
+        const { data } = await axios.get(`${BACKEND_URL}/api/file/getallfile`);
 
         // data is expected to be an array of files with fields: fileId, cluster, row, column, address
         const normalizedQuery = searchQuery.trim().toLowerCase();
